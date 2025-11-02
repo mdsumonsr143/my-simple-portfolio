@@ -1,0 +1,779 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Md. Sumon — Portfolio</title>
+  <meta name="description" content="Md. Sumon — All-in-one portfolio (Clark-inspired sidebar layout)">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg-1: #0b1020;
+      --bg-2: #0f172a;
+      --accent-1: #4f46e5;
+      --accent-2: #06b6d4;
+      --glass: rgba(255, 255, 255, 0.04);
+      --muted: #94a3b8;
+      --text: #e6eef8;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      height: 100%;
+      margin: 0;
+      font-family: Inter, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial;
+      color: var(--text);
+      background: linear-gradient(180deg, var(--bg-1), var(--bg-2));
+      scroll-behavior: smooth;
+    }
+
+    /* Layout */
+    .wrap {
+      display: flex;
+      min-height: 100vh;
+    }
+
+    /* Sidebar */
+    .sidebar {
+      width: 320px;
+      padding: 32px 24px;
+      backdrop-filter: blur(12px);
+      background: linear-gradient(180deg, rgba(31, 41, 55, 0.9), rgba(15, 23, 42, 0.85));
+      border-right: 1px solid rgba(255, 255, 255, 0.06);
+      position: fixed;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      box-shadow: 4px 0 30px rgba(0, 0, 0, 0.2);
+      transition: all 0.3s ease;
+      z-index: 10;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .brand .logo {
+      width: 56px;
+      height: 56px;
+      border-radius: 12px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, var(--accent-1), var(--accent-2));
+      font-weight: 700;
+      color: white;
+      box-shadow: 0 4px 12px rgba(79, 70, 229, 0.3);
+    }
+
+    .brand h1 {
+      font-size: 18px;
+      margin: 0;
+    }
+
+    .profile-pic {
+  width: 160px;
+  height: 160px;
+  border-radius: 20px;
+  margin: 20px auto 10px;
+  background: linear-gradient(135deg, rgba(79, 70, 229, 0.1), rgba(6, 182, 212, 0.08));
+  backdrop-filter: blur(8px);
+  border: 2px solid rgba(255, 255, 255, 0.08);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--muted);
+  font-weight: 600;
+  transition: all 0.3s ease;
+  overflow: hidden; /* important */
+}
+.profile-pic img {
+  width: 100%;       /* div er width fill korbe */
+  height: 100%;      /* div er height fill korbe */
+  object-fit: cover; /* crop kore center e fit korbe */
+  border-radius: 20px; /* div er border radius maintain korbe */
+}
+
+
+    .profile-pic:hover {
+      transform: scale(1.05);
+      box-shadow: 0 8px 25px rgba(6, 182, 212, 0.25);
+    }
+
+    .sidebar p {
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .nav {
+      margin-top: 18px;
+    }
+
+    .nav a {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 10px 12px;
+      border-radius: 12px;
+      color: var(--text);
+      text-decoration: none;
+      margin-bottom: 6px;
+      transition: all 0.3s ease;
+    }
+
+    .nav a:hover {
+      background: linear-gradient(90deg, rgba(79, 70, 229, 0.25), rgba(6, 182, 212, 0.15));
+      transform: translateX(4px);
+    }
+
+    .nav a.active {
+      background: linear-gradient(90deg, rgba(79, 70, 229, 0.35), rgba(6, 182, 212, 0.25));
+      box-shadow: 0 6px 20px rgba(79, 70, 229, 0.15);
+      transform: translateX(4px);
+    }
+
+    .socials {
+      display: flex;
+      gap: 12px;
+      margin-top: 20px;
+    }
+
+    .socials a {
+      width: 40px;
+      height: 40px;
+      border-radius: 12px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(255, 255, 255, 0.02);
+      color: var(--text);
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+
+    .socials a:hover {
+      background: linear-gradient(135deg, var(--accent-1), var(--accent-2));
+      color: #fff;
+      transform: scale(1.1);
+    }
+
+    .sidebar .contact {
+      position: absolute;
+      left: 24px;
+      right: 24px;
+      bottom: 24px;
+      padding: 14px;
+      border-radius: 12px;
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0.01));
+      border: 1px solid rgba(255, 255, 255, 0.02);
+    }
+
+    .sidebar .contact a {
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    /* Main content */
+    main {
+      margin-left: 320px;
+      padding: 48px 64px;
+      flex: 1;
+    }
+
+    section {
+      padding: 72px 0;
+      border-bottom: 1px solid rgba(42, 28, 235, 0.651);
+    }
+
+    h2 {
+      font-size: 28px;
+      margin: 0 0 14px;
+    }
+
+    .muted {
+      color: white;
+    }
+
+    /* Hero */
+    .hero {
+      display: flex;
+      align-items: center;
+      gap: 40px;
+    }
+
+    .hero-text h3 {
+      font-size: 20px;
+      color: var(--accent-2);
+      margin: 0 0 8px;
+    }
+
+    .hero-text h1 {
+      font-size: 42px;
+      margin: 0 0 12px;
+    }
+
+    .hero-cta {
+      margin-top: 18px;
+      display: flex;
+      gap: 12px;
+    }
+
+    .btn {
+      padding: 10px 16px;
+      border-radius: 12px;
+      border: 0;
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.3s ease;
+    }
+
+    .btn-primary {
+      background: linear-gradient(90deg, var(--accent-1), var(--accent-2));
+      color: #fff;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 18px rgb(242, 242, 247);
+    }
+
+    .btn-outline {
+      background: transparent;
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      color: var(--text);
+    }
+
+    .btn-outline:hover {
+      background: rgba(79, 70, 229, 0.12);
+      color: #fff;
+    }
+
+    /* Skill pills */
+    .skills-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .skill {
+      background: rgba(255, 255, 255, 0.02);
+      padding: 8px 14px;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.04);
+      font-weight: 600;
+      transition: all 0.3s ease;
+    }
+
+    .skill:hover {
+      background: linear-gradient(135deg, var(--accent-1), var(--accent-2));
+      color: #fff;
+      transform: scale(1.05);
+    }
+
+    /* Projects */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 20px;
+    }
+
+    .card {
+      background: rgba(88, 90, 231, 0.03);
+      border-radius: 16px;
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      padding: 20px;
+      transition: transform 0.4s ease, box-shadow 0.4s ease, background 0.4s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-12px) scale(1.02);
+      background: rgba(255, 255, 255, 0.06);
+      box-shadow: 0 16px 40px rgba(6, 182, 212, 0.2);
+    }
+
+    .card img {
+      width: 100%;
+      height: 160px;
+      object-fit: cover;
+      border-radius: 12px;
+      margin-bottom: 12px;
+      transition: transform 0.3s ease;
+    }
+
+    .card img:hover {
+      transform: scale(1.05);
+    }
+
+    /* Gallery */
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+    }
+
+    .gallery img {
+      width: 100%;
+      height: 120px;
+      object-fit: cover;
+      border-radius: 12px;
+      transition: transform 0.3s ease;
+    }
+
+    .gallery img:hover {
+      transform: scale(1.05);
+    }
+
+    /* Biodata table */
+    .biodata-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .biodata-table td {
+      padding: 10px 8px;
+      border-bottom: 1px dashed rgba(9, 45, 56, 0.952);
+    }
+
+    .biodata-table td:first-child {
+      width: 200px;
+      color: var(--muted);
+      font-weight: 600;
+    }
+
+    /* Contact form */
+    input,
+    textarea {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      padding: 12px;
+      border-radius: 8px;
+      color: var(--text);
+      transition: all 0.3s ease;
+    }
+
+    input:focus,
+    textarea:focus {
+      border-color: var(--accent-1);
+      outline: none;
+    }
+
+    /* Reveal animations */
+    .reveal {
+      opacity: 0;
+      transform: translateY(20px);
+      filter: blur(2px);
+      transition: opacity 0.6s ease-out, transform 0.6s ease-out, filter 0.6s ease-out;
+    }
+
+    .reveal.show {
+      opacity: 1;
+      transform: none;
+      filter: blur(0);
+    }
+
+    /* Active nav dot */
+    .nav a .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: transparent;
+    }
+
+    .nav a.active .dot {
+      background: linear-gradient(90deg, var(--accent-1), var(--accent-2));
+    }
+
+    /* small screens */
+    @media (max-width: 992px) {
+  .wrap {
+    flex-direction: column;
+  }
+
+  /* Sidebar will act as a normal top section (not fixed) */
+  .sidebar {
+    position: static;
+    width: 100%;
+    height: auto;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 14px 18px;
+    background: linear-gradient(90deg, #0748d3, #3f74ca);
+    border-bottom: 1px solid rgba(159, 28, 235, 0.1);
+  }
+
+  .brand {
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+  }
+
+  /* .brand h1 {
+    display: none;
+  } */
+
+  .profile-pic,
+  .sidebar p,
+  .contact,
+  .socials {
+    display: none;
+  }
+
+  .nav {
+    flex-direction: row;
+    gap: 14px;
+    margin: 0;
+  }
+
+  .nav a {
+    font-size: 14px;
+    padding: 6px 8px;
+  }
+
+  main {
+    margin-left: 0;
+    margin-top: 0;
+    padding: 24px 20px;
+  }
+}
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="logo">MS</div>
+        <div>
+          <h1>Md. Sumon</h1>
+          <div class="muted" style="font-size:13px">Student • Web Developer(trainee)</div>
+        </div>
+      </div>
+
+      <!-- Profile picture placeholder -->
+      <div class="profile-pic" id="profilePic">
+        <img src="./1758197605576[1].jpg" alt="">
+      </div>
+
+      <p class="muted">I am a CSE student aspiring to become a Software Engineer. Currently, I am learning Front-End
+        Development to enhance my skills.</p>
+
+      <nav class="nav" id="sidebarNav">
+        <a href="#home" class="active"><span class="dot"></span><i class="fa-solid fa-house"></i> Home</a>
+        <a href="#about"><span class="dot"></span><i class="fa-solid fa-circle-info"></i> About</a>
+        <a href="#skills"><span class="dot"></span><i class="fa-solid fa-lightbulb"></i> Skills</a>
+        <a href="#projects"><span class="dot"></span><i class="fa-solid fa-diagram-project"></i> Projects</a>
+        <!-- <a href="#creative"><span class="dot"></span><i class="fa-solid fa-image"></i> Creative</a> -->
+        <a href="#biodata"><span class="dot"></span><i class="fa-solid fa-user"></i> Biodata</a>
+        <a href="#contact"><span class="dot"></span><i class="fa-solid fa-envelope"></i> Contact</a>
+      </nav>
+
+      <div class="socials">
+        <a href="#" title="GitHub"><i class="fa-brands fa-github"></i></a>
+        <a href="#" title="LinkedIn"><i class="fa-brands fa-linkedin"></i></a>
+        <a href="#" title="Facebook"><i class="fa-brands fa-facebook"></i></a>
+      </div>
+
+      <div class="contact">
+        <div style="font-weight:700">Get in touch</div>
+        <div class="muted" style="font-size:13px;margin-top:6px">Email: <a
+            href="mailto:mdsumon37529@gmail.com">mdsumon37529@gmail.com</a></div>
+        <div class="muted" style="font-size:13px">Phone: <a href="tel:01700837529">01700837529</a></div>
+      </div>
+    </aside>
+
+    <main>
+      <!-- HOME / HERO -->
+      <section id="home" class="reveal">
+        <div class="hero">
+          <div class="hero-text">
+            <h3>Welcome 👋</h3>
+            <h1>I'm <span
+                style="background:linear-gradient(90deg,var(--accent-1),var(--accent-2));-webkit-background-clip:text;background-clip:text;color:transparent;">Md.
+                Sumon</span></h1>
+            <p class="muted">Student • Web Developer(trainee) • I am a CSE student aspiring to become a Software
+              Engineer. Currently, I am learning Front-End Development to enhance my skills.</p>
+            <div class="hero-cta">
+              <button class="btn btn-primary" onclick="location.href='#projects'">View Projects</button>
+              <button class="btn btn-outline" onclick="location.href='#contact'">Contact</button>
+            </div>
+          </div>
+          <div class="hero-media" style="margin-left:auto;max-width:420px;">
+  <div style="background:linear-gradient(135deg, rgba(73, 65, 231, 0.12), rgba(6,182,212,0.08)); border-radius:16px; padding:18px;">
+    <div style="height:320px; border-radius:12px; background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01)); display:flex; align-items:center; justify-content:center; border:1px solid rgba(255,255,255,0.03)">
+      
+      <div style="width:260px; height:260px; border-radius:12px; overflow:hidden; border:1px solid rgba(255,255,255,0.03);">
+        <img src="./s.jpg" alt="Md. Sumon" style="width:100%; height:100%; object-fit:cover; display:block;">
+      </div>
+
+    </div>
+  </div>
+</div>
+
+        </div>
+      </section>
+
+      <!-- ABOUT -->
+      <section id="about" class="reveal">
+        <h2>About Me</h2>
+        <p class="muted">I am a passionate CSE student and maker. I work on full-stack web apps (PHP, MySQL, JS).
+          Programing language C , C++, javascript.</p>
+        <div style="display:flex;gap:24px;margin-top:20px;flex-wrap:wrap">
+          <div style="flex:1;min-width:260px">
+            <h4>Quick Facts</h4>
+            <table class="biodata-table">
+              <tr>
+                <td>Location</td>
+                <td>Uttara Sector-10 Dhaka, Bangladesh</td>
+              </tr>
+              <tr>
+                <!-- <td>Age</td>
+                <td>24</td> -->
+              </tr>
+              <tr>
+                <td>Languages</td>
+                <td>Bengali, English</td>
+              </tr>
+              <tr>
+                <td>Availability</td>
+                <td>Freelance / Part-time</td>
+              </tr>
+            </table>
+          </div>
+          <div style="flex:1;min-width:260px">
+            <h4>Education</h4>
+            <p class="muted">B.Sc. in Computer Science and Engineering — (IUBAT-International University of Business
+              Agriculture and Technology (Dhaka) ) — running
+              <br>HSC: Comilla Govt. City College, GPA: 5.00
+               <!-- – 2021 -->
+              <br>SSC: Mohanpur High School, GPA: 5.00
+              <!-- – 2019 -->
+            </p>
+            <h4 style="margin-top:12px">Experience</h4>
+            <p class="muted">Worked on Gym Management System (PHP/MySQL), Web developer Portfolio, and Emergency Service
+              Directory.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- SKILLS -->
+      <section id="skills" class="reveal">
+        <h2>Skills</h2>
+        <div class="skills-grid" style="margin-top:12px">
+          <div class="skill">HTML</div>
+          <div class="skill">CSS</div>
+          <div class="skill">JavaScript</div>
+          <!-- <div class="skill">Bootstrap</div> -->
+          <div class="skill">PHP</div>
+          <div class="skill">MySQL</div>
+          <div class="skill">C</div>
+          <div class="skill">C++</div>
+          <div class="skill">Figma</div>
+          <div class="skill">Github</div>
+        </div>
+      </section>
+
+      <!-- PROJECTS -->
+      <section id="projects" class="reveal">
+        <h2>Projects</h2>
+        <div class="projects-grid" style="margin-top:18px">
+          <div class="card">
+            <img
+              src="https://images.unsplash.com/photo-1515876305429-4d44e3b6d0c9?q=80&w=1200&auto=format&fit=crop&ixlib=rb-4.0.3&s=placeholder"
+              alt="Project">
+            <h4>Emergency Service Directory</h4>
+            <p class="muted"></p>
+            <div style="display:flex;gap:8px;margin-top:12px">
+              <a class="btn btn-outline" href="https://github.com/mdsumonsr143/assignment-5">GitHub</a>
+              <a class="btn btn-primary" href="https://mdsumonsr143.github.io/assignment-5/">Live</a>
+            </div>
+          </div>
+
+          <div class="card">
+            <img
+              src="https://images.unsplash.com/photo-1581091870622-3a2b3f9b4f3d?q=80&w=1200&auto=format&fit=crop&ixlib=rb-4.0.3&s=placeholder"
+              alt="Project">
+            <h4>GYM Management System</h4>
+            <p class="muted">Full-stack web app using PHP, MySQL with Bootstrap frontend. Member management, payments
+              and reporting.
+            </p>
+            <div style="display:flex;gap:8px;margin-top:12px">
+              <a class="btn btn-outline" href="#">Details</a>
+              <a class="btn btn-primary" href="#">Report</a>
+            </div>
+          </div>
+
+          <div class="card">
+            <h4>Web Developer portfolio</h4>
+            <p class="muted"></p>
+            <div style="display:flex;gap:8px;margin-top:12px">
+              <a class="btn btn-outline" href="https://github.com/mdsumonsr143/web-developer-portfolio">Code</a>
+              <a class="btn btn-primary" href="https://mdsumonsr143.github.io/web-developer-portfolio/">LIVE</a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- CREATIVE -->
+      <!-- <section id="creative" class="reveal">
+        <h2>Creative Gallery</h2>
+        <div class="gallery" style="margin-top:14px">
+          <img
+            src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?q=80&w=800&auto=format&fit=crop&ixlib=rb-4.0.3&s=placeholder"
+            alt="">
+          <img
+            src="https://images.unsplash.com/photo-1499951360447-b19be8fe80f5?q=80&w=800&auto=format&fit=crop&ixlib=rb-4.0.3&s=placeholder"
+            alt="">
+          <img
+            src="https://images.unsplash.com/photo-1504198453319-5ce911bafcde?q=80&w=800&auto=format&fit=crop&ixlib=rb-4.0.3&s=placeholder"
+            alt="">
+          <img
+            src="https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?q=80&w=800&auto=format&fit=crop&ixlib=rb-4.0.3&s=placeholder"
+            alt="">
+        </div>
+      </section> -->
+
+      <!-- BIODATA -->
+      <section id="biodata" class="reveal">
+        <h2>Biodata</h2>
+        <div style="display:flex;gap:24px;flex-wrap:wrap;margin-top:16px">
+          <div style="flex:1;min-width:280px">
+            <table class="biodata-table">
+              <tr>
+                <td>Full Name</td>
+                <td>Md. Sumon</td>
+              </tr>
+              <tr>
+                <td>Date of Birth</td>
+                <td>25 January 2001</td>
+              </tr>
+              <tr>
+                <td>Height</td>
+                <td>5'6"</td>
+              </tr>
+              <tr>
+                <td>Religion</td>
+                <td>Islam</td>
+              </tr>
+              <tr>
+                <td>Occupation</td>
+                <td>Student / Web Developer (trainee)</td>
+              </tr>
+              <tr>
+                <td>Education</td>
+                <td>B.Sc.(Ongoing) in Computer Science and Engineering — (IUBAT-International University of Business
+              Agriculture and Technology (Dhaka)).
+              <br><br>HSC: Comilla Govt. City College, GPA: 5.00
+               <!-- – 2021 -->
+              <br><br>SSC: Mohanpur High School, GPA: 5.00</td>
+               <!-- – 2019 -->
+              </tr>
+
+              <tr>
+                <td>Family</td>
+                <td>Father: Md. Suruj Miah (Govt. Employee)<br>Mother: Jahanara Begum<br>Siblings: 1 Brother (Singapore)
+                  1 Sister</td>
+              </tr>
+            </table>
+            <div style="margin-top:12px">
+              <a class="btn btn-primary" href="./bio.html">Click For Biodata PDF</a>
+            </div>
+          </div>
+          <div style="flex:1;min-width:280px">
+            <h4>Partner Preferences</h4>
+            <p class="muted">Preferably educated, family-oriented, and located in Bangladesh. Age range 18-28.
+              Respectful and understanding partner.</p>
+            <h4 style="margin-top:12px">Contact</h4>
+            <p class="muted">Phone: <a href="tel:01700837529">01700837529</a><br>Email: <a
+                href="mailto:mdsumon37529@gmail.com">mdsumon37529@gmail.com</a></p>
+          </div>
+        </div>
+      </section>
+
+      <!-- CONTACT -->
+      <section id="contact" class="reveal">
+        <h2>Contact Me</h2>
+        <div style="margin-top:16px;display:flex;gap:24px;flex-wrap:wrap">
+          <div style="flex:1;min-width:320px">
+            <form onsubmit="event.preventDefault(); alert('Message sent (demo).')">
+              <div style="display:flex;gap:12px;margin-bottom:12px">
+                <input class="form-control" placeholder="Your name" required>
+                <input class="form-control" placeholder="Your email" required>
+              </div>
+              <textarea class="form-control" rows="5" placeholder="Your message" required></textarea>
+              <div style="margin-top:12px"><button class="btn btn-primary">Send Message</button></div>
+            </form>
+          </div>
+          <div style="flex:1;min-width:280px">
+            <h4>Reach out</h4>
+            <p class="muted">Email: <a href="mailto:mdsumon37529@gmail.com">mdsumon37529@gmail.com</a><br>Phone: <a
+                href="tel:01700837529">01700837529</a></p>
+
+            <h4 style="margin-top:12px">Follow</h4>
+            <div style="display:flex;gap:8px;margin-top:8px">
+              <a class="btn btn-outline" href="https://github.com/mdsumonsr143"><i class="fa-brands fa-github"></i>
+                GitHub</a>
+              <a class="btn btn-outline" href="https://www.facebook.com/share/17GYqRcCZj/"><i
+                class="fa-brands fa-facebook"></i> Facebook</a>
+              <a class="btn btn-outline" href="#"><i class="fa-brands fa-linkedin"></i> LinkedIn</a>
+              <a class="btn btn-outline" href="https://wa.me/qr/S63DU53JNT3NJ1 "><i
+                  class="fa-brands fa-whats-app"></i> Whats app</a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <footer style="margin-top:36px;padding:20px 0;text-align:center;color:var(--muted)">© 2025 Md. Sumon — All rights
+        reserved</footer>
+    </main>
+  </div>
+
+  <script>
+    // Smooth scroll for sidebar links
+    document.querySelectorAll('aside .nav a').forEach(a => {
+      a.addEventListener('click', function (e) {
+        e.preventDefault();
+        document.querySelectorAll('aside .nav a').forEach(x => x.classList.remove('active'));
+        this.classList.add('active');
+        const id = this.getAttribute('href');
+        const el = document.querySelector(id);
+        if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+    });
+
+    // IntersectionObserver for reveal animations & active nav
+    const sections = document.querySelectorAll('main section');
+    const navLinks = Array.from(document.querySelectorAll('aside .nav a'));
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('show');
+          // set active nav
+          const id = '#' + entry.target.id;
+          navLinks.forEach(a => a.classList.toggle('active', a.getAttribute('href') === id));
+        }
+      });
+    }, { threshold: 0.25 });
+    sections.forEach(s => io.observe(s));
+
+    // Profile photo slot: user can drop image file onto the placeholder
+    const profileBox = document.getElementById('profilePic');
+    profileBox.addEventListener('click', () => alert('Replace the placeholder with your photo file: set <div id="profilePic"> innerHTML or replace with <img src="your-photo.jpg">'));
+
+    // Optional: keyboard navigation - press 'c' to open contact
+    document.addEventListener('keydown', (e) => { if (e.key === 'c') location.href = '#contact'; });
+  </script>
+</body>
+
+</html>
